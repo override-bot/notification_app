@@ -5,6 +5,7 @@ class LandingScreen extends StatefulWidget{
   LandingScreenState createState() => LandingScreenState();
 }
 class LandingScreenState extends State<LandingScreen>{
+  TextEditingController _numberField = TextEditingController();
   @override
   Widget build(BuildContext context) {
       return Scaffold(
@@ -64,6 +65,8 @@ class LandingScreenState extends State<LandingScreen>{
               child: MaterialButton(
                 onPressed: (){
                   showMaterialModalBottomSheet(context: context, 
+                enableDrag: true,
+                
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(
                   top: Radius.circular(20)
@@ -74,7 +77,68 @@ class LandingScreenState extends State<LandingScreen>{
                //   animationCurve: ,
                   elevation: 3.0,
                   builder: (context) => Container(
-                    height: 100,
+                      height:300,
+                       child: Column(
+                         children: [
+                           Container(
+                             margin: EdgeInsets.only(top: 20),
+                          child: Text(
+                            "Add your phone number to receive notifications",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color:Colors.grey[800],
+                              fontSize: (17/720) * MediaQuery.of(context).size.height,
+                              fontWeight: FontWeight.w600
+                            ),
+                          ),
+                           ),
+                           Container(
+                             margin: EdgeInsets.only(top:15),
+                           width:MediaQuery.of(context).size.width/1.3,
+                             child: TextField(
+                               controller: _numberField,
+                               style: TextStyle(color: Colors.black),
+                               decoration: InputDecoration(
+                                 hintText: "7059392971",
+                                 prefixText: "+234",
+                                 labelText: "phone number",
+                                 labelStyle: TextStyle(
+                                   color: Colors.grey,
+                                   fontSize: (17/720) * MediaQuery.of(context).size.height,
+                                   fontWeight: FontWeight.w500
+                                 ),
+                                  focusedBorder: new OutlineInputBorder(
+                borderSide: new BorderSide(color: Colors.grey, width: 1.5)),
+            enabledBorder: new OutlineInputBorder(
+                borderSide: BorderSide(
+              color: Colors.grey,
+              width: 1.5
+            )),
+                               ),
+                             ),
+                           ),
+                             Container(
+                               margin:EdgeInsets.only(top:17),
+              width: MediaQuery.of(context).size.width / 1.8,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5.0),
+                  color: Colors.blue[800]),
+              child: MaterialButton(
+                onPressed:null,
+                 child: Text(
+                  "Add number",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: (15/720) * MediaQuery.of(context).size.height,
+                    fontWeight: FontWeight.w500
+                  ),
+                )
+                   
+              ),
+            ),
+                         ],
+                       ),
                   ));
                 },
                 child: Text(
