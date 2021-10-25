@@ -25,6 +25,7 @@ class HttpClientImpl with ErrorCatchMixin implements HttpClient {
   Map<String, String> get jsonHeadersWithoutToken => {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": "*",
       };
 
   Future<DataResponse<Map<String, dynamic>>> get(
@@ -37,13 +38,14 @@ class HttpClientImpl with ErrorCatchMixin implements HttpClient {
           headers: jsonHeadersWithoutToken,
         );
 
-        var data = jsonDecode(response.body);
+        final data = jsonDecode(response.body);
+
         log("RESPONSE BODY FOR $endpoint: $data");
 
         final error = _checkForError(response.statusCode, data);
 
         return DataResponse<Map<String, dynamic>>(
-          data: data,
+          data: data as Map<String, dynamic>,
           error: error,
         );
       },
@@ -61,13 +63,14 @@ class HttpClientImpl with ErrorCatchMixin implements HttpClient {
         headers: jsonHeadersWithoutToken,
       );
 
-      var data = jsonDecode(response.body);
+      final data = jsonDecode(response.body);
       final error = _checkForError(response.statusCode, data);
+
       log("RESPONSE BODY FOR $endpoint: $data");
       log("RESPONSE ERROR ${error?.runtimeType}");
 
       return DataResponse<Map<String, dynamic>>(
-        data: data,
+        data: data as Map<String, dynamic>,
         error: error,
       );
     });

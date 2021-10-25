@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:notification_app/core/data/models/exceptions.dart';
 
@@ -33,6 +34,7 @@ class NetworkFailure extends Failure {
 }
 
 Failure handleException(Exception e) {
+  log(e.toString());
   if (e is SocketException)
     return NetworkFailure(
       message:

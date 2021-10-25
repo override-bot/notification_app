@@ -13,6 +13,13 @@ class AuthViewModel extends BaseViewModel {
     String phoneNumber,
   ) async {
     try {
+      if (phoneNumber == null || phoneNumber.isEmpty) {
+        AppToast.instance.error("Phone number field cannot be empty");
+        return;
+      }
+
+      setState(state: ViewState.busy);
+
       final response = await notifierRepository.register(
         password: "defaultPassword",
         phoneNumber: phoneNumber,
@@ -25,11 +32,12 @@ class AuthViewModel extends BaseViewModel {
       } else {
         //user's contact has been saved, show a response
         //to indicate success
-
+        setState();
         AppToast.instance.showSnackBar(
             message: "Your contact has been added to the database");
       }
     } catch (e) {
+      setState();
       log(e);
     }
   }
@@ -40,6 +48,8 @@ class AuthViewModel extends BaseViewModel {
     String password,
   }) async {
     try {
+      setState(state: ViewState.busy);
+
       final response = await notifierRepository.register(
         password: password,
         phoneNumber: phoneNumber,
@@ -50,6 +60,8 @@ class AuthViewModel extends BaseViewModel {
         //handle error
         handleFailure(response.error);
       } else {
+        setState();
+
         //store user id in local storage
         //consider scoping/encrypting this as this data
         //is visible to all apps running on the browser
@@ -58,6 +70,7 @@ class AuthViewModel extends BaseViewModel {
         //user regisetered, auto log in and navigate to dashboard
       }
     } catch (e) {
+      setState();
       log(e);
     }
   }
@@ -68,6 +81,8 @@ class AuthViewModel extends BaseViewModel {
     String password,
   }) async {
     try {
+      setState(state: ViewState.busy);
+
       final response = await notifierRepository.login(
         password: password,
         phoneNumber: phoneNumber,
@@ -77,6 +92,8 @@ class AuthViewModel extends BaseViewModel {
         //handle error
         handleFailure(response.error);
       } else {
+        setState();
+
         //store user id in local storage
         //consider scoping/encrypting this as this data
         //is visible to all apps running on the browser
@@ -85,6 +102,7 @@ class AuthViewModel extends BaseViewModel {
         //user logged in, navigate to dashboard
       }
     } catch (e) {
+      setState();
       log(e);
     }
   }
