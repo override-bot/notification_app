@@ -24,21 +24,4 @@ extension Converter<E> on DataResponse<Map<String, dynamic>> {
       error: error,
     );
   }
-
-  DataResponse<bool> transformToStatusOnly(
-      {bool Function(Map<String, dynamic> data) statusChecker}) {
-    bool status = false;
-    if (data != null) {
-      if (statusChecker != null) {
-        status = statusChecker(data);
-      } else {
-        status = data['status'] == 'success';
-      }
-    }
-
-    return DataResponse(
-      data: status,
-      error: status ? error : error ?? UnknownFailure('An error occurred'),
-    );
-  }
 }
