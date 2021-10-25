@@ -22,7 +22,7 @@ abstract class NotifierRepository {
   ///Sends a message.
   ///
   ///Returns the number of recepients if successful
-  Future<DataResponse<int>> sendMessage({
+  Future<DataResponse<String>> sendMessage({
     String senderId,
     String message,
   });

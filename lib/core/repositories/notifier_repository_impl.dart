@@ -34,7 +34,12 @@ class NotifierRepositoryImpl implements NotifierRepository {
       },
     );
 
-    return res.transform((data) => data['user_id']);
+    return res.transform(
+      (data) => ParserUtil.parseJsonString(
+        data,
+        'user_id',
+      ),
+    );
   }
 
   @override
@@ -52,11 +57,16 @@ class NotifierRepositoryImpl implements NotifierRepository {
       },
     );
 
-    return res.transform((data) => data['user_id']);
+    return res.transform(
+      (data) => ParserUtil.parseJsonString(
+        data,
+        'user_id',
+      ),
+    );
   }
 
   @override
-  Future<DataResponse<int>> sendMessage({
+  Future<DataResponse<String>> sendMessage({
     String senderId,
     String message,
   }) async {
@@ -68,6 +78,11 @@ class NotifierRepositoryImpl implements NotifierRepository {
       },
     );
 
-    return res.transform((data) => data['recipients']);
+    return res.transform(
+      (data) => ParserUtil.parseJsonString(
+        data,
+        'recipients',
+      ),
+    );
   }
 }
